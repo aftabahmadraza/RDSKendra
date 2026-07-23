@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# 🤖 AI Search Bots को explicitly allow करना (ChatGPT, Perplexity, Gemini)
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://rdskendra.co.in/sitemap-index.xml

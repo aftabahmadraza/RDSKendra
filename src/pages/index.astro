@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+
+const tools = [
+  { href: '/tools/passport-photo', label: 'Passport Photo Maker', icon: '🪪' },
+  { href: '/tools/pdf', label: 'PDF Tools', icon: '📄' },
+  { href: '/tools/aadhaar', label: 'Aadhaar Tool', icon: '🆔' },
+  { href: '/tools/pan', label: 'PAN Tool', icon: '💳' },
+  { href: '/tools/bank', label: 'Bank Tools', icon: '🏦' },
+  { href: '/tools/csc', label: 'CSC Tools', icon: '🖥️' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'RDS Kendra',
+  url: Astro.site,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${Astro.site}search?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+---
+
+<BaseLayout
+  title="Passport Photo, PDF, Aadhaar, PAN, Bank & CSC Tools"
+  description="भारत के सबसे भरोसेमंद फ्री ऑनलाइन टूल्स - Passport Photo Maker, PDF Tools, Aadhaar, PAN Card, Bank और CSC Tools।"
+  jsonLd={jsonLd}
+>
+  <section class="text-center py-10">
+    <h1 class="text-3xl md:text-4xl font-bold mb-3">RDS Kendra में आपका स्वागत है</h1>
+    <p class="text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+      Passport Photo, PDF, Aadhaar, PAN, Bank और CSC से जुड़े सभी टूल्स — फ्री, तेज़ और मोबाइल फ्रेंडली।
+    </p>
+  </section>
+
+  <section class="grid grid-cols-2 md:grid-cols-3 gap-4 my-10">
+    {tools.map((tool) => (
+      <a
+        href={tool.href}
+        class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 text-center hover:border-brand-500 hover:shadow-md transition-all"
+      >
+        <span class="text-3xl block mb-2">{tool.icon}</span>
+        <span class="font-medium text-sm">{tool.label}</span>
+      </a>
+    ))}
+  </section>
+
+  <section class="mt-14">
+    <h2 class="text-xl font-semibold mb-4">नए Articles</h2>
+    <ul class="grid gap-4 md:grid-cols-2">
+      {posts.map((post) => (
+        <li class="border border-slate-200 dark:border-slate-800 rounded-lg p-4">
+          <a href={`/blog/${post.slug}/`} class="font-medium hover:text-brand-600">
+            {post.data.title}
+          </a>
+          <p class="text-sm text-slate-500 mt-1">{post.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
