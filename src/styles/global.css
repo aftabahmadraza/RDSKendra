@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ============================================
+   🪪 TOOL CARD — "Identity Card" signature design
+   हर Tool box असली Aadhaar/PAN/Bank card जैसा दिखे:
+   corner notch (punch), dashed perforation किनारा,
+   ऊपर service-code (जैसे असली govt forms में होता है)।
+   ============================================ */
+.tool-card {
+  position: relative;
+  display: block;
+  padding: 1.5rem 1.25rem 1.25rem;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbf9f3 100%);
+  border: 1px solid #e6e1d3;
+  box-shadow: 0 1px 2px rgba(20, 33, 61, 0.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  overflow: hidden;
+}
+
+.dark .tool-card {
+  background: linear-gradient(180deg, #1a2540 0%, #14213d 100%);
+  border-color: #2a3a63;
+}
+
+/* ऊपर बाईं तरफ छोटा monospace service-code, असली ID कार्ड जैसे */
+.tool-card .tool-code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: #c9992e;
+  font-weight: 600;
+}
+
+/* दाएँ ऊपर कोने में "पंच नॉच" — कार्ड का corner काटा हुआ जैसा */
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  background: inherit;
+  border-left: 1px solid #e6e1d3;
+  border-bottom: 1px solid #e6e1d3;
+  border-bottom-left-radius: 14px;
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+}
+.dark .tool-card::before {
+  border-color: #2a3a63;
+}
+
+.tool-card .tool-icon {
+  font-size: 1.75rem;
+  display: block;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.tool-card .tool-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: inherit;
+}
+
+/* सोने के रंग की "seal line" — hover पर पूरी चौड़ाई तक फैलती है, जैसे approval stamp */
+.tool-card .tool-seal {
+  display: block;
+  height: 2px;
+  width: 28px;
+  margin-top: 0.6rem;
+  background: #c9992e;
+  transition: width 0.25s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-3px);
+  border-color: #c9992e;
+  box-shadow: 0 8px 20px rgba(201, 153, 46, 0.18);
+}
+.tool-card:hover .tool-seal {
+  width: 100%;
+}
+
+/* नीचे dashed perforation — पुराने ration-card/ticket stub जैसा एहसास */
+.tool-card .tool-perforation {
+  position: absolute;
+  bottom: 10px;
+  left: 1.25rem;
+  right: 1.25rem;
+  border-bottom: 1.5px dashed #d8d2bf;
+}
+.dark .tool-card .tool-perforation {
+  border-color: #33447a;
+}
+
